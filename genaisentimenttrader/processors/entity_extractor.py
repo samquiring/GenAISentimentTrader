@@ -1,11 +1,11 @@
 """Entity extraction processor using dspy."""
 
-import re
 from typing import List, Literal
 
 import dspy
 
-from ..models.types import AssetType, ContentItem, ExtractedEntity, SentimentType
+from genaisentimenttrader.models.types import AssetType, ContentItem, ExtractedEntity, SentimentType
+from genaisentimenttrader.initializers import gemini_key
 
 
 class EntityExtractionSignature(dspy.Signature):
@@ -22,9 +22,10 @@ class EntityExtractionSignature(dspy.Signature):
 
 class EntityExtractor:
     """Extract financial entities from content using dspy."""
-    
-    def __init__(self) -> None:
-        """Initialize the entity extractor."""
+
+    def __init__(self, model="gemini/gemini-2.5-flash-lite"):
+        super().__init__()
+        dspy.settings.configure(lm=dspy.LM(model=model))
         self.extract_module = dspy.Predict(EntityExtractionSignature)
 
     

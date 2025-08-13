@@ -13,7 +13,8 @@ dependencies = [
     "pydantic (>=2.0.0,<3.0.0)",
     "asyncio",
     "typing-extensions (>=4.0.0)",
-    "python-dotenv (>=1.0.0)"
+    "python-dotenv (>=1.0.0)",
+    "loguru (>=0.7.3,<0.8.0)"
 ]
 
 [tool.poetry]
@@ -36,6 +37,12 @@ fix = true
 quote-style = "double"
 indent-style = "space"
 
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+addopts = "-v --tb=short"
+
 [tool.mypy]
 python_version = "3.12"
 warn_return_any = true
@@ -50,13 +57,6 @@ warn_unused_ignores = true
 warn_no_return = true
 warn_unreachable = true
 strict_equality = true
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py", "*_test.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
-addopts = "--cov=genaisentimenttrader --cov-report=term-missing --cov-report=html"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

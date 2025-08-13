@@ -4,7 +4,7 @@ import asyncio
 from typing import AsyncGenerator, List, Optional
 from uuid import UUID
 
-from ..models.types import ContentItem
+from genaisentimenttrader.models.types import ContentItem
 
 
 class DataSink:
