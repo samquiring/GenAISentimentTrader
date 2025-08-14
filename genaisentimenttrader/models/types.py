@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 
 class ContentType(Enum):
     """Type of content being processed."""
+
     TWEET = "TWEET"
     ARTICLE = "ARTICLE"
     NEWS = "NEWS"
@@ -18,6 +19,7 @@ class ContentType(Enum):
 
 class AssetType(Enum):
     """Type of financial asset."""
+
     STOCK = "STOCK"
     CRYPTO = "CRYPTO"
     ETF = "ETF"
@@ -26,6 +28,7 @@ class AssetType(Enum):
 
 class SentimentType(Enum):
     """Sentiment classification."""
+
     POSITIVE = "POSITIVE"
     NEGATIVE = "NEGATIVE"
     NEUTRAL = "NEUTRAL"
@@ -34,6 +37,7 @@ class SentimentType(Enum):
 
 class TradingAction(Enum):
     """Trading action to take."""
+
     BUY = "BUY"
     SELL = "SELL"
     HOLD = "HOLD"
@@ -42,7 +46,7 @@ class TradingAction(Enum):
 
 class ContentItem(BaseModel):
     """Input content item for processing."""
-    
+
     id: UUID = Field(default_factory=uuid4)
     content_type: ContentType
     text: str = Field(..., min_length=1)
@@ -54,7 +58,7 @@ class ContentItem(BaseModel):
 
 class ExtractedEntity(BaseModel):
     """An extracted financial entity from content."""
-    
+
     symbol: str = Field(..., min_length=1)
     asset_type: AssetType
     sentiment: SentimentType
@@ -65,7 +69,7 @@ class ExtractedEntity(BaseModel):
 
 class ProcessingResult(BaseModel):
     """Result of processing a content item."""
-    
+
     content_id: UUID
     extracted_entities: List[ExtractedEntity] = Field(default_factory=list)
     processing_timestamp: datetime = Field(default_factory=datetime.utcnow)
@@ -74,7 +78,7 @@ class ProcessingResult(BaseModel):
 
 class TradingSignal(BaseModel):
     """Trading signal generated from analysis."""
-    
+
     id: UUID = Field(default_factory=uuid4)
     content_id: UUID
     symbol: str = Field(..., min_length=1)
@@ -89,7 +93,7 @@ class TradingSignal(BaseModel):
 
 class TradingOrder(BaseModel):
     """Actual trading order to execute."""
-    
+
     id: UUID = Field(default_factory=uuid4)
     signal_id: UUID
     symbol: str = Field(..., min_length=1)
